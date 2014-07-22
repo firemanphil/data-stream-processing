@@ -4,6 +4,7 @@ import com.datasift.client.stream.Interaction;
 import com.datasift.datastreamprocessing.buffer.InteractionBuffer;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -43,6 +44,7 @@ public class GoogleRequestor implements InteractionConsumer {
             for (int i = 0; i < (noOfResults) ; i+= RESULTS_RETURN_SIZE) {
                 JsonNode batchOfResults = retrieveBatch(topic, i);
                 ArrayNode arrayBatch = (ArrayNode) batchOfResults.findValue("results");
+
                 if(fullResultSet==null){
                     fullResultSet = arrayBatch;
                 } else {
@@ -68,7 +70,14 @@ public class GoogleRequestor implements InteractionConsumer {
     private JsonNode retrieveBatch(String topic, int batchStart) throws IOException {
         URL url = new URL(GOOGLE_SEARCH_API_ADDRESS + urlEncode(topic) + "&start="+batchStart);
         JsonParser jp = factory.createJsonParser(url.openStream());
-        return mapper.readTree(jp);
+        TreeNode tree = mapper.readTree(jp);
+        JsonNode node = (JsonNode)tree;
+        JsonNode statusNode = node.findValue("responseStatus");
+        if(statusNode!=null  && statusNode.asInt() == 403){
+            throw new RuntimeException("Hit google terms of use limit when asking for topic "+topic);
+
+        }
+        return node;
     }
 
     public static String urlEncode(String string) {
