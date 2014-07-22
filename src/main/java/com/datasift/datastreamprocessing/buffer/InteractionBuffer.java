@@ -9,6 +9,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ *
+ * A buffer to take processing out of the consumption loop
+ *
+ *
  * @author philipince
  *         Date: 22/07/2014
  *         Time: 11:44

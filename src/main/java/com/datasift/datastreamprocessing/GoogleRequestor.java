@@ -16,6 +16,9 @@ import java.net.URL;
 import static java.net.URLEncoder.encode;
 
 /**
+ *
+ * Uses the Google search AJAX api to pull down results
+ *
  * @author philipince
  *         Date: 22/07/2014
  *         Time: 10:39

@@ -15,7 +15,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.datasift.datastreamprocessing.App</mainClass>
+                            <mainClass>com.datasift.datastreamprocessing.DataSiftStreamEnricher</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
