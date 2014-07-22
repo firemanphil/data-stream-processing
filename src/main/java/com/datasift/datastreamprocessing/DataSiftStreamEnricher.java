@@ -8,11 +8,14 @@ import com.datasift.datastreamprocessing.buffer.InteractionBuffer;
 import com.datasift.datastreamprocessing.downstream.HttpDownstreamHandler;
 
 /**
+ *
+ * Entry point for the application
+ *
  * @author philipince
  *         Date: 22/07/2014
  *         Time: 10:09
  */
-public class App {
+public class DataSiftStreamEnricher {
 
     public static void main(String args[]){
         if(args.length != 4){
